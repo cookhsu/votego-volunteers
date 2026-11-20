@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+const memory=new Map();
+globalThis.sessionStorage={getItem:key=>memory.get(key)??null,setItem:(key,value)=>memory.set(key,value)};
+const {demoRequest:api}=await import('./demo.js');
+const signIn=username=>api('login',{username,password:'VoteGo-demo-2026'});
+await assert.rejects(api('data'),/請先登入/);
+await signIn('coordinator');
+await api('action',{action:'register',name:'示範測試',team:'後勤組'});
+const newcomer=(await api('data')).volunteers.find(x=>x.name==='示範測試');
+assert.equal(newcomer.status,'pending');
+await assert.rejects(api('action',{action:'shift',event:1,volunteer:newcomer.id}),/已核准/);
+await api('action',{action:'review',id:newcomer.id,status:'approved'});
+await api('action',{action:'shift',event:1,volunteer:newcomer.id});
+await assert.rejects(api('action',{action:'shift',event:1,volunteer:newcomer.id}),/重疊/);
+await assert.rejects(api('action',{action:'supply',name:'背心',quantity:1}),/管理員/);
+await api('logout',{});
+await signIn('volunteer');
+const own=await api('data');
+assert.equal(own.volunteers.length,1);
+assert.equal(own.shifts.length,1);
+assert.equal(own.audit.length,0);
+await assert.rejects(api('action',{action:'task',name:'示範',due:'2026-11-28'}),/無法執行/);
+await signIn('admin');
+assert.ok((await api('data')).audit.some(x=>x.action==='shift'));
+console.log('PASS: 線上示範角色、報名、審核、排班衝突、分頁儲存及稽核。');
+

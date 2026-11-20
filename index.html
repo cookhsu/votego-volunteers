@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VoteGo 志工管理</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body><a class="skip" href="#main">跳至主要內容</a>
+<div id="login-view" class="login-view"><div class="login-card">
+<div class="brand"><span class="brand-mark" aria-hidden="true">V</span><span><strong>VoteGo</strong><small>志工管理系統</small></span></div>
+<h1>歡迎回來</h1><p>登入以查看志工名單、行程與排班。</p>
+<form id="login"><label>帳號<input name="username" autocomplete="username" required maxlength="32"></label><label>密碼<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label><button class="primary">登入</button><p id="login-status" role="alert"></p></form>
+<section id="demo" hidden><h2>試用示範帳號</h2><div class="demo-actions"><button data-demo="admin">系統管理員</button><button data-demo="coordinator">團隊協調員</button><button data-demo="volunteer">志工</button></div></section>
+</div></div>
+<div id="workspace" class="workspace" hidden>
+<aside class="sidebar" id="sidebar"><div class="brand"><span class="brand-mark" aria-hidden="true">V</span><span><strong>VoteGo</strong><small>志工管理系統</small></span></div><nav id="menu" aria-label="工作區導覽"></nav><small class="sidebar-foot">VoteGo 志工工作區</small></aside>
+<div class="main-wrap"><header class="topbar"><button type="button" id="menu-toggle" aria-controls="sidebar" aria-expanded="false">選單</button><span class="workspace-name">志工工作區</span><div class="account"><span class="avatar" aria-hidden="true"></span><div><strong id="user-name"></strong><small id="user-role"></small></div><button id="logout" type="button">登出</button></div></header>
+<main id="main" tabindex="-1"><div class="notice" id="work-status" role="status"></div><div id="page"></div></main>
+<footer>Copyright © 2026 JasonHsu. All rights reserved.</footer></div></div>
+<dialog id="editor" aria-labelledby="editor-title"><form id="editor-form"><div class="dialog-head"><h2 id="editor-title"></h2><button type="button" id="cancel" aria-label="關閉">×</button></div><div id="fields"></div><p id="editor-status" role="alert"></p><button class="primary" type="submit">儲存</button></form></dialog></body></html>
