@@ -29,6 +29,8 @@ async function refresh() {data=await api('data');render();}
 async function init() {
   session=await api('session');
   $('#demo').hidden=!session.demo;
+  $('#setup').hidden=!session.setupNeeded||!!session.user;
+  $('#login').hidden=!!session.setupNeeded;
   $('#login-view').hidden=!!session.user;
   $('#workspace').hidden=!session.user;
   if(!session.user)return;
@@ -47,6 +49,15 @@ async function signIn(username,password) {
   finally{submit.disabled=false;}
 }
 login.addEventListener('submit',e=>{e.preventDefault();const form=new FormData(login);void signIn(form.get('username'),form.get('password'));});
+$('#setup-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const form=e.currentTarget, submit=form.querySelector('button[type=submit]'), status=$('#setup-status');
+  submit.disabled=true;
+  status.textContent='';
+  try{await api('setup',Object.fromEntries(new FormData(form)));form.reset();await init();}
+  catch(error){status.textContent=error.message;}
+  finally{submit.disabled=false;}
+});
 $('#demo').addEventListener('click',e=>{if(e.target.dataset.demo)void signIn(e.target.dataset.demo,'VoteGo-demo-2026');});
 $('#logout').addEventListener('click',async()=>{
   try{await api('logout',{});$('#page').replaceChildren();$('#work-status').textContent='';await init();login.elements.username.focus();}

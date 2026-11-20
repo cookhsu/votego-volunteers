@@ -6,6 +6,7 @@
 <div class="brand"><span class="brand-mark" aria-hidden="true">V</span><span><strong>VoteGo</strong><small>志工管理系統</small></span></div>
 <h1>歡迎回來</h1><p>登入以查看志工名單、行程與排班。</p>
 <form id="login"><label>帳號<input name="username" autocomplete="username" required maxlength="32"></label><label>密碼<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label><button class="primary">登入</button><p id="login-status" role="alert"></p></form>
+<section id="setup" hidden><h2>設定管理員帳號</h2><p>輸入一次性設定碼，建立你的專屬帳號。密碼至少 12 個字元。</p><form id="setup-form"><label>設定碼<input name="code" type="password" autocomplete="off" required maxlength="128"></label><label>顯示名稱<input name="name" required maxlength="40"></label><label>帳號<input name="username" autocomplete="username" required minlength="3" maxlength="32"></label><label>新密碼<input name="password" type="password" autocomplete="new-password" required minlength="12" maxlength="128"></label><button type="submit" class="primary">建立管理員帳號</button><p id="setup-status" role="alert"></p></form></section>
 <section id="demo" hidden><h2>試用示範帳號</h2><div class="demo-actions"><button data-demo="admin">系統管理員</button><button data-demo="coordinator">團隊協調員</button><button data-demo="volunteer">志工</button></div></section>
 </div></div>
 <div id="workspace" class="workspace" hidden>

@@ -12,7 +12,7 @@ node server.mjs
 
 ## 介面與資訊架構
 
-Vercel 建置執行 `node build.mjs` 並發布 `public/`。線上示範以各分頁的 sessionStorage 儲存操作，不傳送報名資料到伺服器，重新整理後需再選示範角色，關閉分頁後可重新從假資料開始。SQLite 伺服器及 Node.js 測試保留在原始碼中，可在本機執行。
+Vercel 建置執行 `node build.mjs` 並發布 `public/`。正式環境使用 `api/workspace.mjs` 和專用 PostgreSQL，需設定伺服器端的 `DATABASE_URL`。初次上線在 Vercel 將 `VOTEGO_SETUP_CODE` 設為隨機的敏感環境變數，使用網站的設定頁建立第一個管理員。建立成功後設定路徑會自動關閉。預覽環境仍可使用由分頁 sessionStorage 隔離的假資料，SQLite 伺服器保留供本機使用。
 
 | 畫面 | 桌機 | 手機與鍵盤操作 |
 |---|---|---|
